@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="Aprenda a criar vídeos com inteligência artificial e usar tráfego pago para construir oportunidades no mercado digital.">
+  <title>Operação Digital | Vídeos com IA + Tráfego Pago</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0b0d0a;
+      --surface-2: #101510;
+      --green: #b7ff35;
+      --green-soft: #8edb27;
+      --white: #f4f7f0;
+      --muted: #a0a99d;
+      --line: rgba(183,255,53,.19);
+      --font: "Inter", sans-serif;
+      --display: "Space Grotesk", sans-serif;
+      --mono: "DM Mono", monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .13;
+      background-image:
+        linear-gradient(rgba(183,255,53,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(183,255,53,.08) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to bottom, #000, transparent 82%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    .container { width: min(1120px, 90%); margin: auto; position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--green); font: 11px var(--mono);
+      letter-spacing: 1.8px; text-transform: uppercase;
+    }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 13px var(--green);
+    }
+    header {
+      height: 74px; display: flex; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      position: relative; z-index: 5;
+      background: rgba(5,5,5,.78); backdrop-filter: blur(14px);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .logo { font: 700 19px var(--display); letter-spacing: -1px; }
+    .logo span { color: var(--green); }
+    .nav-status { color: var(--muted); font: 10px var(--mono); letter-spacing: 1px; }
+    .nav-status i {
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); margin-right: 7px;
+    }
+
+    .hero {
+      min-height: 730px; display: flex; align-items: center;
+      text-align: center; padding: 92px 0 82px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; width: 760px; height: 540px;
+      top: 0; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(115,190,37,.16), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 960px; margin: auto; }
+    .hero h1 {
+      font: 700 clamp(39px, 7vw, 76px)/1.02 var(--display);
+      letter-spacing: -4px; margin: 27px 0 24px;
+    }
+    .hero h1 span, .green { color: var(--green); }
+    .hero-description {
+      max-width: 720px; margin: 0 auto 30px; color: var(--muted);
+      font-size: 17px; line-height: 1.8;
+    }
+    /* Imagem principal: grande, vertical e sem cortar o conteúdo original. */
+    .hero-image-wrap {
+      width: min(100%, 780px);
+      margin: 42px auto 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #050505;
+      box-shadow: 0 25px 90px rgba(0,0,0,.55), 0 0 35px rgba(183,255,53,.08);
+    }
+    .hero-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 896 / 1195;
+      object-fit: contain;
+      object-position: center;
+    }
+    .image-caption {
+      position: absolute; z-index: 1; left: 20px; bottom: 17px;
+      color: #e8f2e2; font: 10px var(--mono); letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+    .hero-note { margin-top: 18px; color: #7e887c; font: 10px var(--mono); letter-spacing: 1px; }
+
+    .btn {
+      display: inline-flex; justify-content: center; align-items: center; gap: 12px;
+      padding: 18px 27px; background: var(--green); color: #101509;
+      border: 1px solid var(--green); border-radius: 5px;
+      font-size: 12px; font-weight: 900; letter-spacing: .7px;
+      text-transform: uppercase; transition: .25s;
+      box-shadow: 0 0 28px rgba(183,255,53,.13);
+    }
+    .btn:hover { background: #d0ff83; transform: translateY(-3px); box-shadow: 0 0 42px rgba(183,255,53,.25); }
+    .btn .arrow { font-size: 18px; }
+    .btn-dark { background: transparent; color: var(--green); }
+
+    section { padding: 96px 0; position: relative; }
+    .section-heading { max-width: 760px; margin: 0 auto 48px; text-align: center; }
+    .section-heading h2 {
+      font: 700 clamp(30px, 5vw, 49px)/1.1 var(--display);
+      letter-spacing: -2px; margin: 17px 0;
+    }
+    .section-heading p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+
+    .hook-section { background: #090d09; border-top: 1px solid rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.04); }
+    .hook-card {
+      max-width: 900px; margin: auto; padding: 44px;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: linear-gradient(135deg, #101810, #080a08);
+      text-align: center;
+    }
+    .hook-card h2 {
+      font: 700 clamp(28px, 4.5vw, 43px)/1.13 var(--display);
+      letter-spacing: -1.8px; margin: 18px 0;
+    }
+    .hook-card p { color: var(--muted); font-size: 15px; line-height: 1.85; max-width: 720px; margin: auto; }
+    .hook-card .emphasis { display: block; color: var(--green); font-weight: 800; margin-top: 20px; }
+
+    .loss-grid, .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .info-card {
+      padding: 27px 24px; border: 1px solid var(--line); border-radius: 8px;
+      background: linear-gradient(145deg, #101610, #080b08); transition: .25s;
+    }
+    .info-card:hover { transform: translateY(-5px); border-color: var(--green); }
+    .card-index { color: var(--green); font: 11px var(--mono); letter-spacing: 1px; }
+    .info-card h3 { font: 600 20px var(--display); margin: 22px 0 11px; }
+    .info-card p { color: var(--muted); font-size: 13px; line-height: 1.75; }
+
+    .statement {
+      max-width: 940px; margin: auto; text-align: center;
+      padding: 54px 35px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .statement h2 {
+      font: 700 clamp(29px, 5vw, 48px)/1.13 var(--display);
+      letter-spacing: -2px; margin: 18px 0;
+    }
+    .statement p { color: var(--muted); line-height: 1.8; max-width: 720px; margin: auto; }
+
+    .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .pillar {
+      padding: 27px 22px; background: linear-gradient(145deg, #101811, #080c09);
+      border: 1px solid var(--line); border-radius: 8px; transition: .3s;
+    }
+    .pillar:hover { transform: translateY(-6px); border-color: var(--green); }
+    .pillar-number { color: var(--green); font: 11px var(--mono); }
+    .pillar-icon { color: var(--green); font-size: 26px; margin-top: 22px; }
+    .pillar h3 { font: 600 19px var(--display); margin: 15px 0 11px; }
+    .pillar p { color: var(--muted); font-size: 13px; line-height: 1.75; }
+
+    .dark-panel {
+      background: linear-gradient(120deg, #101a10, #080b09);
+      border: 1px solid var(--line); border-radius: 12px; padding: 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: center;
+    }
+    .dark-panel h2 { font: 700 clamp(29px, 4vw, 43px)/1.13 var(--display); letter-spacing: -2px; margin: 18px 0; }
+    .dark-panel p { color: var(--muted); line-height: 1.8; font-size: 14px; }
+    .check-list { display: flex; flex-direction: column; gap: 17px; }
+    .check-item { display: flex; gap: 13px; color: #dce4da; font-size: 14px; line-height: 1.65; }
+    .check-item span { color: var(--green); font-weight: 900; }
+
+    .modules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .module {
+      display: flex; gap: 19px; padding: 24px;
+      border: 1px solid rgba(255,255,255,.09); border-radius: 8px; background: #0b100c;
+    }
+    .module-num { color: var(--green); font: 12px var(--mono); }
+    .module h3 { font: 600 17px var(--display); margin-bottom: 8px; }
+    .module p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .offer {
+      background: radial-gradient(ellipse at 50% 25%, rgba(104,188,42,.13), transparent 62%), #080c09;
+    }
+    .offer-card {
+      max-width: 720px; margin: auto; border: 1px solid rgba(183,255,53,.4);
+      border-radius: 12px; padding: 48px; text-align: center;
+      background: linear-gradient(145deg, #101810, #080b09);
+      box-shadow: 0 20px 100px rgba(0,0,0,.4);
+    }
+    .offer-card h2 { font: 700 clamp(30px, 5vw, 42px)/1.1 var(--display); letter-spacing: -2px; margin: 18px 0; }
+    .offer-card > p { color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .offer-list {
+      text-align: left; max-width: 460px; margin: 29px auto;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .offer-list div { color: #dce4da; font-size: 13px; line-height: 1.5; }
+    .offer-list span { color: var(--green); margin-right: 10px; font-weight: 900; }
+    .price-label { color: var(--muted); font: 11px var(--mono); letter-spacing: 1.5px; margin-top: 25px; }
+    .price { color: var(--green); font: 700 clamp(46px, 7vw, 58px) var(--display); letter-spacing: -2px; margin: 5px 0 20px; }
+    .price-note { color: #7e887c; font-size: 11px; line-height: 1.7; margin-top: 15px; }
+    .scarcity-note { color: var(--green); font: 11px var(--mono); margin-top: 18px; letter-spacing: .5px; }
+
+    .guarantee {
+      max-width: 790px; margin: auto; padding: 32px;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 10px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .guarantee-icon {
+      min-width: 60px; height: 60px; border: 1px solid var(--green);
+      border-radius: 50%; display: grid; place-items: center; color: var(--green); font-size: 25px;
+    }
+    .guarantee h3 { font: 600 20px var(--display); margin-bottom: 8px; }
+    .guarantee p { color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .faq { max-width: 820px; margin: auto; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .faq-question {
+      width: 100%; background: none; border: 0; color: white; text-align: left;
+      padding: 22px 0; display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; font-size: 14px; font-weight: 700;
+    }
+    .faq-question span { color: var(--green); font-size: 21px; }
+    .faq-answer { color: var(--muted); font-size: 13px; line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .faq-item.active .faq-answer { max-height: 220px; padding-bottom: 20px; }
+
+    .final-cta {
+      text-align: center; padding: 110px 0;
+      background: radial-gradient(ellipse at center, rgba(105,180,45,.12), transparent 65%);
+    }
+    .final-cta h2 {
+      font: 700 clamp(35px, 6vw, 60px)/1.08 var(--display);
+      letter-spacing: -3px; max-width: 850px; margin: 20px auto;
+    }
+    .final-cta p { color: var(--muted); max-width: 620px; margin: 0 auto 30px; line-height: 1.8; font-size: 14px; }
+    footer {
+      padding: 30px 0; border-top: 1px solid rgba(255,255,255,.08);
+      color: #758076; font-size: 11px; text-align: center; line-height: 1.8;
+    }
+    footer strong { color: #cbd4c9; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .edit-bar {
+      display: none; position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%);
+      z-index: 1000; background: #111a12; border: 1px solid var(--green);
+      border-radius: 10px; padding: 10px; gap: 8px; box-shadow: 0 10px 40px #000;
+      align-items: center; width: max-content; max-width: 96%;
+    }
+    .edit-bar.active { display: flex; }
+    .edit-bar button {
+      border: 1px solid #394738; background: #182219; color: white;
+      border-radius: 5px; padding: 10px 12px; font-size: 11px;
+    }
+    .edit-bar button.primary { background: var(--green); color: #101509; border-color: var(--green); font-weight: 900; }
+    .editing [data-edit] { outline: 1px dashed var(--green); outline-offset: 4px; cursor: text; }
+    #editorToggle {
+      position: fixed; right: 15px; bottom: 15px; z-index: 999;
+      background: #111a12; border: 1px solid var(--green); color: var(--green);
+      padding: 12px 16px; border-radius: 6px; font-size: 11px; font-weight: 800;
+    }
+    .editing #editorToggle { display: none; }
+
+    @media (max-width: 850px) {
+      .pillars { grid-template-columns: repeat(2, 1fr); }
+      .dark-panel { grid-template-columns: 1fr; padding: 35px; }
+      .loss-grid, .benefit-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      header { height: 64px; }
+      .nav-status { font-size: 8px; }
+      .hero { min-height: auto; padding: 82px 0 70px; }
+      .hero h1 { letter-spacing: -2px; }
+      .hero-description { font-size: 14px; }
+      .hero-image-wrap { width: 100%; margin-top: 30px; border-radius: 9px; }
+      .hero-image { width: 100%; height: auto; aspect-ratio: 896 / 1195; object-fit: contain; }
+      section { padding: 73px 0; }
+      .pillars, .modules { grid-template-columns: 1fr; }
+      .pillar { padding: 23px; }
+      .offer-card { padding: 32px 20px; }
+      .guarantee { padding: 23px 18px; align-items: flex-start; }
+      .guarantee-icon { min-width: 48px; height: 48px; font-size: 20px; }
+      .edit-bar { flex-wrap: wrap; justify-content: center; }
+      .hook-card { padding: 30px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo" data-edit="logo">OPERAÇÃO<span>.</span>DIGITAL</div>
+      <div class="nav-status"><i></i> CONHECIMENTO EM CONSTRUÇÃO</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="eyebrow"><span class="dot"></span> UMA NOVA OPORTUNIDADE NO MERCADO DIGITAL</div>
+        <h1 data-edit="hero-title">PARE DE APENAS ASSISTIR À REVOLUÇÃO.<br>APRENDA A <span>LUCRAR COM ELA.</span></h1>
+        <p class="hero-description" data-edit="hero-description">
+          Aprenda a criar vídeos com inteligência artificial sem precisar aparecer, usar produções caras ou começar com uma estrutura complexa — e descubra como combinar conteúdo e tráfego pago para atrair pessoas e transformar atenção em oportunidades de negócio.
+        </p>
+        <a href="#oferta" class="btn">QUERO CONHECER A FORMAÇÃO <span class="arrow">↗</span></a>
+
+        <div class="hero-image-wrap reveal">
+          <!-- Troque o arquivo abaixo pela imagem principal da sua oferta. -->
+          <img class="hero-image" id="heroImage" src="/img/imn.jpg" alt="Estratégia de criação de vídeos com inteligência artificial e marketing digital" onerror="this.style.display='none'; this.parentElement.classList.add('image-missing');">
+          <div class="image-caption">INTELIGÊNCIA ARTIFICIAL // CONTEÚDO // AQUISIÇÃO</div>
+        </div>
+        <p class="hero-note">VÍDEOS COM IA + TRÁFEGO PAGO + ESTRATÉGIA DIGITAL</p>
+      </div>
+    </section>
+
+    <section class="hook-section">
+      <div class="container">
+        <div class="hook-card reveal">
+          <div class="eyebrow">UMA PERGUNTA INCÔMODA</div>
+          <h2>Enquanto você lê esta página, <span class="green">10 pessoas podem estar aprendendo</span> a fazer o que você ainda está adiando.</h2>
+          <p>
+            E amanhã, talvez sejam elas aparecendo no feed dos seus possíveis clientes, oferecendo serviços, testando anúncios e construindo experiência — enquanto você continua esperando o momento perfeito.
+            <span class="emphasis">O mercado não precisa esperar você se sentir pronto.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">01 / O CUSTO DE FICAR PARADO</div>
+          <h2>O preço de não aprender também existe. <span class="green">E ele aumenta com o tempo.</span></h2>
+          <p>Você não precisa dominar tudo hoje. Mas ignorar habilidades que estão mudando a produção de conteúdo e a aquisição de clientes pode limitar suas opções amanhã.</p>
+        </div>
+        <div class="loss-grid">
+          <article class="info-card reveal">
+            <div class="card-index">01 / VISIBILIDADE</div>
+            <h3>Enquanto você hesita, alguém ocupa espaço.</h3>
+            <p>Negócios e profissionais que aprendem a produzir conteúdo com consistência podem testar mais ideias, comunicar melhor suas ofertas e disputar atenção no mercado.</p>
+          </article>
+          <article class="info-card reveal">
+            <div class="card-index">02 / OPORTUNIDADE</div>
+            <h3>Você pode continuar dependendo de terceiros.</h3>
+            <p>Sem aprender a criar e distribuir conteúdo, você pode ficar limitado por custos de produção, falta de habilidade ou dificuldade para colocar suas ideias em prática.</p>
+          </article>
+          <article class="info-card reveal">
+            <div class="card-index">03 / ADAPTAÇÃO</div>
+            <h3>O mercado não vai ficar mais simples por você esperar.</h3>
+            <p>Ferramentas mudam, concorrentes testam novas estratégias e a atenção das pessoas se disputa todos os dias. Aprender agora amplia seu repertório para decidir melhor.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="statement reveal">
+          <div class="eyebrow">A DIFERENÇA ENTRE CONSUMIR E CONSTRUIR</div>
+          <h2>Você pode passar mais um ano vendo outras pessoas fazerem — ou começar a desenvolver <span class="green">uma habilidade que pode abrir novas portas.</span></h2>
+          <p>Não é uma promessa de dinheiro fácil. É um convite para aprender ferramentas, criar ativos digitais, testar estratégias e desenvolver capacidade de execução.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">02 / O QUE VOCÊ PODE DESENVOLVER</div>
+          <h2>Transforme inteligência artificial em <span class="green">produção e oportunidade.</span></h2>
+          <p>Aprenda a usar recursos acessíveis para produzir conteúdo, apresentar ofertas e alcançar potenciais clientes com mais estratégia.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="info-card reveal">
+            <div class="card-index">BENEFÍCIO 01</div>
+            <h3>Produza vídeos sem uma equipe de gravação.</h3>
+            <p>Conheça ferramentas de IA que ajudam a criar vídeos, cenas, imagens e peças criativas sem depender de câmera profissional ou estúdio.</p>
+          </article>
+          <article class="info-card reveal">
+            <div class="card-index">BENEFÍCIO 02</div>
+            <h3>Comece usando ferramentas gratuitas.</h3>
+            <p>Descubra alternativas gratuitas ou com planos de entrada para experimentar formatos, validar ideias e aprender antes de assumir custos maiores.</p>
+          </article>
+          <article class="info-card reveal">
+            <div class="card-index">BENEFÍCIO 03</div>
+            <h3>Aprenda a distribuir com tráfego pago.</h3>
+            <p>Entenda os fundamentos de campanhas, públicos, criativos e orçamento para ampliar o alcance de uma oferta com decisões orientadas por dados.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">03 / OS QUATRO PILARES</div>
+          <h2>Não basta criar um vídeo. <span class="green">É preciso saber o que fazer com ele.</span></h2>
+          <p>A proposta é conectar criação, distribuição e conversão em um processo que você consiga entender e aplicar.</p>
+        </div>
+        <div class="pillars">
+          <article class="pillar reveal">
+            <div class="pillar-number">01 / CRIAÇÃO</div>
+            <div class="pillar-icon">✳</div>
+            <h3>Vídeos com IA</h3>
+            <p>Crie vídeos, imagens e criativos com ferramentas de inteligência artificial, inclusive opções gratuitas.</p>
+          </article>
+          <article class="pillar reveal">
+            <div class="pillar-number">02 / ATENÇÃO</div>
+            <div class="pillar-icon">⌁</div>
+            <h3>Conteúdo estratégico</h3>
+            <p>Aprenda a estruturar mensagens, ganchos e peças que apresentam uma ideia e despertam interesse.</p>
+          </article>
+          <article class="pillar reveal">
+            <div class="pillar-number">03 / AQUISIÇÃO</div>
+            <div class="pillar-icon">◈</div>
+            <h3>Tráfego pago</h3>
+            <p>Conheça os fundamentos para configurar campanhas, testar anúncios e alcançar públicos relevantes.</p>
+          </article>
+          <article class="pillar reveal">
+            <div class="pillar-number">04 / CONVERSÃO</div>
+            <div class="pillar-icon">⟳</div>
+            <h3>Vendas e otimização</h3>
+            <p>Entenda ofertas, páginas, comunicação e análise de resultados para melhorar seu processo comercial.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="dark-panel reveal">
+          <div>
+            <div class="eyebrow">04 / A MUDANÇA DE MENTALIDADE</div>
+            <h2>Não seja apenas mais alguém que conhece ferramentas. Aprenda a <span class="green">colocá-las para trabalhar.</span></h2>
+            <p>Uma ferramenta isolada faz uma tarefa. Uma estratégia conecta as tarefas a um objetivo: chamar atenção, apresentar valor, gerar conversas e buscar vendas.</p>
+          </div>
+          <div class="check-list">
+            <div class="check-item"><span>✓</span> Criar vídeos e criativos com ferramentas de IA.</div>
+            <div class="check-item"><span>✓</span> Desenvolver conteúdos com uma mensagem comercial clara.</div>
+            <div class="check-item"><span>✓</span> Entender como funciona a aquisição por anúncios.</div>
+            <div class="check-item"><span>✓</span> Estruturar ofertas e páginas para apresentar produtos ou serviços.</div>
+            <div class="check-item"><span>✓</span> Analisar o que funciona e melhorar a execução.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">05 / SUA JORNADA DE APRENDIZADO</div>
+          <h2>Do primeiro vídeo a uma estratégia <span class="green">mais estruturada.</span></h2>
+          <p>Uma sequência prática para você sair da curiosidade e começar a executar.</p>
+        </div>
+        <div class="modules">
+          <article class="module reveal"><div class="module-num">01</div><div><h3>Fundamentos do mercado digital</h3><p>Como funcionam atenção, oferta, audiência, produtos e oportunidades de negócio.</p></div></article>
+          <article class="module reveal"><div class="module-num">02</div><div><h3>Ferramentas de vídeo com IA</h3><p>Conheça recursos para gerar imagens, cenas, vídeos e criativos, incluindo opções gratuitas.</p></div></article>
+          <article class="module reveal"><div class="module-num">03</div><div><h3>Roteiros e criativos</h3><p>Ganchos, estrutura de vídeos curtos, chamadas para ação e comunicação que apresenta valor.</p></div></article>
+          <article class="module reveal"><div class="module-num">04</div><div><h3>Tráfego pago do início</h3><p>Conceitos de campanhas, públicos, orçamento, criativos e leitura de métricas.</p></div></article>
+          <article class="module reveal"><div class="module-num">05</div><div><h3>Ofertas e vendas</h3><p>Posicionamento, copywriting, páginas de vendas, funis e processo de conversão.</p></div></article>
+          <article class="module reveal"><div class="module-num">06</div><div><h3>Testes e otimização</h3><p>Como avaliar resultados, identificar pontos de melhoria e tomar decisões com mais clareza.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer" id="oferta">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">06 / COMECE A SUA JORNADA</div>
+          <h2>O conhecimento só muda alguma coisa quando <span class="green">você aplica.</span></h2>
+          <p>Tenha acesso à formação e comece a desenvolver habilidades de criação com IA e aquisição de clientes.</p>
+        </div>
+        <div class="offer-card reveal">
+          <div class="eyebrow">OPERAÇÃO DIGITAL</div>
+          <h2>Aprenda a criar. Aprenda a anunciar. Aprenda a vender.</h2>
+          <p>Uma formação introdutória para conectar vídeos com inteligência artificial, conteúdo e tráfego pago em uma estratégia digital.</p>
+          <div class="offer-list">
+            <div><span>✓</span> Criação de vídeos com inteligência artificial</div>
+            <div><span>✓</span> Ferramentas gratuitas e alternativas acessíveis</div>
+            <div><span>✓</span> Roteiros, criativos e conteúdo estratégico</div>
+            <div><span>✓</span> Fundamentos de tráfego pago</div>
+            <div><span>✓</span> Ofertas, páginas e estratégias de vendas</div>
+            <div><span>✓</span> Métricas, testes e otimização</div>
+          </div>
+          <div class="price-label">INVESTIMENTO</div>
+          <div class="price" data-edit="price">R$ 19,90</div>
+          <a href="https://pay.cakto.com.br/cdbw9xz_1336281" class="btn cakto-link" target="_blank" rel="noopener noreferrer">
+            QUERO COMEÇAR AGORA <span class="arrow">↗</span>
+          </a>
+          <div class="price-note">Pagamento processado no checkout da Cakto. Confira as condições e os detalhes do acesso antes de concluir.</div>
+          <div class="scarcity-note">NÃO ADIE UMA HABILIDADE QUE VOCÊ PODE COMEÇAR A DESENVOLVER HOJE.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="guarantee reveal">
+          <div class="guarantee-icon">✓</div>
+          <div>
+            <h3>Compre com clareza</h3>
+            <p data-edit="guarantee">Consulte as condições, o prazo e a política de garantia informados na página de checkout. Qualquer solicitação de reembolso seguirá as regras aplicáveis e os termos apresentados no momento da compra.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">07 / DÚVIDAS FREQUENTES</div>
+          <h2>Antes de começar, <span class="green">algumas respostas.</span></h2>
+        </div>
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Preciso saber editar vídeos? <span>+</span></button>
+            <div class="faq-answer">Não precisa chegar sabendo. A proposta é apresentar ferramentas e processos para começar a criar vídeos com IA e evoluir com a prática.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">As ferramentas de IA são gratuitas? <span>+</span></button>
+            <div class="faq-answer">Você conhecerá opções gratuitas ou com planos de entrada. A disponibilidade e os limites de cada ferramenta podem mudar de acordo com o fornecedor.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Preciso investir em anúncios? <span>+</span></button>
+            <div class="faq-answer">O conteúdo ensina fundamentos de tráfego pago. Para veicular campanhas, normalmente é necessário definir um orçamento de mídia, que é separado do valor da formação. Você pode estudar e planejar antes de anunciar.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Vou ganhar dinheiro imediatamente? <span>+</span></button>
+            <div class="faq-answer">Não existe garantia de ganhos ou de resultados imediatos. O objetivo é desenvolver habilidades que podem ser aplicadas em projetos e negócios. Os resultados dependem da execução, da oferta, do mercado, do orçamento e de outros fatores.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Preciso aparecer nos vídeos? <span>+</span></button>
+            <div class="faq-answer">Há formatos de conteúdo que podem ser produzidos sem mostrar o rosto. Você aprenderá possibilidades de criação com IA e poderá escolher o formato adequado ao seu projeto.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Como recebo o acesso? <span>+</span></button>
+            <div class="faq-answer">Após a confirmação do pagamento, as instruções de acesso serão enviadas conforme a configuração do produto na Cakto. Confira seu e-mail e as orientações do checkout.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container reveal">
+        <div class="eyebrow">A PRÓXIMA DECISÃO É SUA</div>
+        <h2>Daqui a alguns meses, você pode continuar observando — ou ter começado a <span class="green">construir.</span></h2>
+        <p>Você não precisa prever o futuro do mercado digital. Precisa começar a aprender, testar ferramentas e desenvolver capacidade para aproveitar oportunidades com responsabilidade.</p>
+        <a href="https://pay.cakto.com.br/cdbw9xz_1336281" class="btn cakto-link" target="_blank" rel="noopener noreferrer">
+          ACESSAR A FORMAÇÃO <span class="arrow">↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>OPERAÇÃO DIGITAL</strong><br>
+      Conteúdo educacional sobre vídeos com inteligência artificial, marketing e tráfego pago.<br>
+      Resultados variam conforme aplicação, experiência, oferta, investimento e condições de mercado.
+      <br><br>© <span id="year"></span> Todos os direitos reservados.
+    </div>
+  <script>
+    // CONFIGURAÇÕES PRINCIPAIS
+    const DEFAULT_CAKTO_LINK = "https://pay.cakto.com.br/cdbw9xz_1336281";
+    const DEFAULT_IMAGE = "Gemini_Generated_Image_ytpi6zytpi6zytpi%20(1)(1).jpg";
+    let checkoutAtual = DEFAULT_CAKTO_LINK;
+    let imageAtual = DEFAULT_IMAGE;
+
+    function setCheckoutLink(link) {
+      document.querySelectorAll(".cakto-link").forEach(button => {
+        button.href = link;
+      });
+    }
+
+    function setHeroImage(url) {
+      const image = document.getElementById("heroImage");
+      image.style.display = "block";
+      image.src = url;
+      image.onerror = () => {
+        image.style.display = "none";
+        alert("Não foi possível carregar essa imagem. Confira o endereço ou o nome do arquivo.");
+      };
+    }
+
+    // FAQ: abre uma resposta por vez.
+    document.querySelectorAll(".faq-question").forEach(button => {
+      button.addEventListener("click", () => {
+        const item = button.parentElement;
+        const wasActive = item.classList.contains("active");
+
+        document.querySelectorAll(".faq-item").forEach(el => {
+          el.classList.remove("active");
+          el.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+          el.querySelector(".faq-question span").textContent = "+";
+        });
+
+        if (!wasActive) {
+          item.classList.add("active");
+          button.setAttribute("aria-expanded", "true");
+          button.querySelector("span").textContent = "−";
+        }
+      });
+    });
+
+    // Animações de entrada com fallback para navegadores sem IntersectionObserver.
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach(element => observer.observe(element));
+    } else {
+      document.querySelectorAll(".reveal").forEach(element => element.classList.add("visible"));
+    }
+
+    // EDITOR SIMPLES: as alterações ficam salvas neste navegador.
+    const editorToggle = document.getElementById("editorToggle");
+    const editBar = document.getElementById("editBar");
+    const pageBody = document.body;
+
+    function loadSavedContent() {
+      let saved = {};
+      try {
+        saved = JSON.parse(localStorage.getItem("operacaoDigitalContent") || "{}");
+      } catch (error) {
+        console.warn("Não foi possível ler as alterações salvas.", error);
+      }
+
+      document.querySelectorAll("[data-edit]").forEach(element => {
+        const key = element.dataset.edit;
+        if (saved[key] !== undefined) {
+          if (key === "price" || key === "guarantee" || key === "logo") {
+            element.textContent = saved[key];
+          } else {
+            element.innerHTML = saved[key];
+          }
+        }
+      });
+
+      if (saved.checkout) {
+        checkoutAtual = saved.checkout;
+        setCheckoutLink(checkoutAtual);
+      }
+      if (saved.image) {
+        imageAtual = saved.image;
+        setHeroImage(imageAtual);
+      }
+    }
+
+    function enterEditor() {
+      pageBody.classList.add("editing");
+      editBar.classList.add("active");
+      document.querySelectorAll("[data-edit]").forEach(element => {
+        element.contentEditable = "true";
+        element.spellcheck = true;
+      });
+    }
+
+    function exitEditor() {
+      pageBody.classList.remove("editing");
+      editBar.classList.remove("active");
+      document.querySelectorAll("[data-edit]").forEach(element => {
+        element.contentEditable = "false";
+      });
+    }
+
+    function saveContent() {
+      const content = {};
+      document.querySelectorAll("[data-edit]").forEach(element => {
+        const key = element.dataset.edit;
+        content[key] = key === "price" || key === "guarantee" || key === "logo"
+          ? element.textContent
+          : element.innerHTML;
+      });
+      content.checkout = checkoutAtual;
+      content.image = imageAtual;
+
+      try {
+        localStorage.setItem("operacaoDigitalContent", JSON.stringify(content));
+        alert("Alterações salvas neste navegador.");
+      } catch (error) {
+        alert("Não foi possível salvar. Verifique as configurações de armazenamento do navegador.");
+      }
+    }
+
+    editorToggle.addEventListener("click", enterEditor);
+    document.getElementById("exitEdit").addEventListener("click", exitEditor);
+    document.getElementById("saveEdit").addEventListener("click", saveContent);
+
+    document.getElementById("linkEdit").addEventListener("click", () => {
+      const link = prompt("Cole o link completo do checkout da Cakto:", checkoutAtual);
+      if (!link) return;
+
+      try {
+        const parsed = new URL(link);
+        if (parsed.protocol === "https:" && parsed.hostname === "pay.cakto.com.br") {
+          checkoutAtual = parsed.href;
+          setCheckoutLink(checkoutAtual);
+          alert("Link atualizado. Clique em “Salvar alterações”.");
+        } else {
+          alert("Use um endereço HTTPS do domínio pay.cakto.com.br.");
+        }
+      } catch {
+        alert("Endereço inválido. Cole o link completo do checkout.");
+      }
+    });
+
+    document.getElementById("imageEdit").addEventListener("click", () => {
+      const url = prompt("Cole o endereço da imagem ou o caminho do arquivo (ex.: operacao-digital.jpg):", imageAtual);
+      if (!url) return;
+      imageAtual = url.trim();
+      setHeroImage(imageAtual);
+    });
+
+    document.getElementById("priceEdit").addEventListener("click", () => {
+      const price = prompt("Digite o preço que deseja exibir:", "R$ 19,90");
+      if (!price) return;
+      document.querySelectorAll('[data-edit="price"]').forEach(el => el.textContent = price.trim());
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    setCheckoutLink(DEFAULT_CAKTO_LINK);
+    loadSavedContent();
+  </script>
+</body>
+</html>
